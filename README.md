@@ -11,4 +11,4 @@ Two items are included.
 
 Reference: Linxuan Li, Gang Luo, and Mian Liu (under review). The K–M slope: a potential supplement for b-value.
 
-COntact: Linxuan Li.  lxli_0@whu.edu.cn or lucas_linxuan_li@gmail.com
+Contact: Linxuan Li.  lxli_0@whu.edu.cn or lucas_linxuan_li@gmail.com
