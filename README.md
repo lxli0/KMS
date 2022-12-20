@@ -5,7 +5,7 @@ We verify that there is a positive between KMS and b-value from Gutenberg–Rich
 
 Here, We provide:
 
-1.  The Matlabcode to calculate KMS_0 (KMS/b ratio) under a given catalog size.
+1.  The Matlab code to calculate KMS_0 (KMS/b ratio) under a given catalog size.
 
 2.  The Matlab code to calculate the temporal evolution of b-value by KMS and the imporved KMS methods. The earthquake data in the 
     northeastern Tibetan Plateau from 1980 to 2020 is the input of the code, and can be freely replaced.
