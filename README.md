@@ -1,14 +1,16 @@
-# EQ_NE_TP_-1980to2020-
+# K–M slope (KMS)
 
-Two items are included.
+K–M slope (KMS) is a parameter derived from Visiblity Graph Analysis (Lacasa et al., 2008 PNAS; Telesca et al., 2013 Physica A).
+We verify that there is a positive between KMS and b-value from Gutenberg–Richter law. Thus, it can be used to estimate b-value.
 
-1.  We provide the Matlab code to calculate the temporal evolution of b-value by KMS and the imporved KMS.
+Here, We provide:
+
+1.  The Matlabcode to calculate KMS_0 (KMS/b ratio) under a given catalog size.
+
+2.  The Matlab code to calculate the temporal evolution of b-value by KMS and the imporved KMS methods. The earthquake data in the 
+    northeastern Tibetan Plateau from 1980 to 2020 is the input of the code, and can be freely replaced.
  
-2.  We provided the earthquake data in the northeastern Tibetan Plateau from 1980 to 2020.
-    The original data include the global earthquakes detected by China seismic network from
-    1980 to 2020 and are not publicly open. Request for the original data needs to be sent 
-    directly to the China Earthquake Networks Center. 
 
-Reference: Linxuan Li, Gang Luo, and Mian Liu (under review). The K–M slope: a potential supplement for b-value.
+Reference: Linxuan Li, Gang Luo, and Mian Liu (in revision). The K–M slope: a potential supplement for b-value. Seismological Research Letters.
 
 Contact: Linxuan Li.  lxli_0@whu.edu.cn or lucas_linxuan_li@gmail.com
