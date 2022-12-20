@@ -14,7 +14,7 @@
 % step: the number of events moved forward for each calculation
 
 %
-% Reference: Linxuan Li, Gang Luo, and Mian Liu (under review). The K–M
+% Reference: Linxuan Li, Gang Luo, and Mian Liu (in revision). The K–M
 % slope: a potential supplement for b-value.
 % CopyRight: Linxuan Li, Wuhan University
 % Tested under Matlab_R2020b 
@@ -91,71 +91,20 @@ KMS_Poisson_normal=KMS_Poisson/KMS0;
 
 %% Plot
 color=1/255*[117 114 181;91 183 205; 197 86 89;203 180 123];
-figure('units','normalized','position',[0.1,0.1,0.7,0.9])
-subplot(5,1,1)
 plot(t_cal,bleast_normal,'color',color(1,:),'linewidth',1.5);hold on;
 plot(t_cal,bmax_normal,'color',color(2,:),'linewidth',1.5);hold on;
 plot(t_cal,KMS_origin_normal,'color',color(3,:),'linewidth',1.5);hold on;
 plot(t_cal,KMS_Poisson_normal,'color',color(4,:),'linewidth',1.5);hold on;
 legend('LSR','MLE','KMS','KMS (Improved)','NumColumns',4,'Location','Northwest')
-set(gca,'position',[0.15 0.82 0.75 0.16])
 set(gca,'xlim',[1980 2021]);
 set(gca,'xticklabel',[]);
-ylabel('b value')
+ylabel('b-value')
 ylim([0.2,1.8])
 box on;
 grid on;
 set(gca,'fontsize',16)
 
-subplot(5,1,2)
-plot(t_cal,bleast_normal,'color',color(1,:),'linewidth',1.5);
-set(gca,'xticklabel',[]);
-ylabel('b value')
-ylim([0.2,1.8])
-box on;
-grid on;
-set(gca,'fontsize',16)
-set(gca,'position',[0.15 0.64 0.75 0.16])
-set(gca,'xlim',[1980 2021]);
-legend('LSR','Location','Northwest')
 
-subplot(5,1,3)
-plot(t_cal,bmax_normal,'color',color(2,:),'linewidth',1.5);
-set(gca,'xticklabel',[]);
-ylim([0.2,1.8])
-ylabel('b value')
-box on;
-grid on;
-set(gca,'fontsize',16)
-set(gca,'position',[0.15 0.46 0.75 0.16])
-set(gca,'xlim',[1980 2021]);
-legend('MLE','Location','Northwest')
-
-subplot(5,1,4)
-plot(t_cal,KMS_origin_normal,'color',color(3,:),'linewidth',1.5);
-ylabel('b value')
-legend('KMS','Location','Northwest')
-ylim([0.2,1.8])
-box on;
-grid on;
-set(gca,'fontsize',16)
-set(gca,'position',[0.15 0.28 0.75 0.16])
-set(gca,'xlim',[1980 2021]);
-set(gca,'xticklabel',[]);
-
-subplot(5,1,5)
-plot(t_cal,KMS_Poisson_normal,'color',color(4,:),'linewidth',1.5);
-ylim([0.2,1.8])
-box on;
-grid on;
-set(gca,'fontsize',16)
-set(gca,'position',[0.15 0.1 0.75 0.16])
-set(gca,'xlim',[1980 2021]);
-xlabel('Year');
-ylabel('b value')
-legend('KMS (Improved)','Location','Northwest')
-    
-    
 %% traditional b-value estimation
 function [b_least,b_max]=GR(Dm,Mmin)
     L=length(Dm);
