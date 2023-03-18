@@ -11,6 +11,6 @@ Here, We provide:
     northeastern Tibetan Plateau from 1980 to 2020 is the input of the code, and can be freely replaced.
  
 
-Reference: Linxuan Li, Gang Luo, and Mian Liu (in revision). The K–M slope: a potential supplement for b-value. Seismological Research Letters.
+Reference: Linxuan Li, Gang Luo, and Mian Liu (2023). The K–M slope: a potential supplement for b-value. Seismological Research Letters.
 
 Contact: Linxuan Li.  lxli_0@whu.edu.cn or lucas_linxuan_li@gmail.com
