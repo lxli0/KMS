@@ -13,4 +13,4 @@ Reference:
 1.  Linxuan Li, Gang Luo, and Mian Liu (2023). The K–M slope: a potential supplement for b-value. Seismological Research Letters
 2.  Linxuan Li and Gang Luo (submitted). Can we obtain reliable seismic b-values for real-time catalogs?
 
-Contact: Linxuan Li.  lxli_0@whu.edu.cn or lucas_linxuan_li@gmail.com
+Contact: Linxuan Li.  lxli_0@whu.edu.cn or lucas.linxuan.li@gmail.com
