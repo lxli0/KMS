@@ -10,7 +10,7 @@ Here, We provide:
 3.  A relatively fast Matlab code for calculating the b-value of a given magnitude sequence based on the improved KMS method. --eff_KMS_Improved.m
 
 Reference: 
-1.  Linxuan Li, Gang Luo, and Mian Liu (2023). The K–M slope: a potential supplement for b-value. Seismological Research Letters. doi.org/10.1785/0220220268
+1.  Linxuan Li, Gang Luo, and Mian Liu (2023). The K–M slope: a potential supplement for b-value. Seismological Research Letters 94, 1892-1899. doi.org/10.1785/0220220268
 2.  Linxuan Li and Gang Luo (submitted). Can we obtain reliable seismic b-values for real-time catalogs?
 
 Contact: Linxuan Li.  lli7@caltech.edu or lucas.linxuan.li@gmail.com
