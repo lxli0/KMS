@@ -10,13 +10,13 @@ Here, We provide:
 5.  An efficient (the time complexity is O(n*logn)) Matlab code for calculating the b-value of a given magnitude sequence based on the improved KMS method. The script is based on the Divide & Conquer (DC) strategy (Lan et al., 2015). --KMS_Improved_DC_algorithm.m
 
 For estimating the b-value using the KMS method, please refer to:
-1.  Linxuan Li, Gang Luo, and Mian Liu (2023). The K–M slope: a potential supplement for b-value. Seismological Research Letters 94, 1892-1899. doi: 10.1785/0220220268
-2.  Linxuan Li and Gang Luo (submitted). Can we obtain reliable seismic b-values for real-time catalogs?
+1.  Linxuan Li, Gang Luo, and Mian Liu (2023). The K–M slope: a potential supplement for b-value. Seismological Research Letters 94, 1892-1899. doi: 10.1785/0220220268.
+2.  Linxuan Li and Gang Luo (in revision). Can we obtain reliable seismic b-values for real-time catalogs?
 
 Other references: 
-1.  Lucas Lacasa, Bartolo Luque, Fernando Ballesteros, Jordi Luque, and Juan Carlos Nuño (2008). From time series to complex networks: The visibility graph. Proceedings of the National Academy of Sciences 105(13), 4972-4975. doi: 10.1073/pnas.0709247105
+1.  Lucas Lacasa, Bartolo Luque, Fernando Ballesteros, Jordi Luque, and Juan Carlos Nuño (2008). From time series to complex networks: The visibility graph. Proceedings of the National Academy of Sciences 105(13), 4972-4975. doi: 10.1073/pnas.0709247105.
 2.  Luciano Telesca, Michele Lovallo, Alejandro Ramirez-Rojas, and Leticia Flores-Marquez (2013). Investigating the time dynamics of seismicity by using the visibility graph approach: Application to seismicity of Mexican subduction zone. Physica A: Statistical Mechanics and its Applications 392(23), 6571-6577. doi: 10.1016/j.physa.2013.08.078.
-3.  Xin Lan, Hongming Mo, Shiyu Chen, Qi Liu, and Yong Deng (2015). Fast transformation from time series to visibility graphs. Chaos: An Interdisciplinary Journal of Nonlinear Science. 25:083105. doi: 10.1063/1.4927835
+3.  Xin Lan, Hongming Mo, Shiyu Chen, Qi Liu, and Yong Deng (2015). Fast transformation from time series to visibility graphs. Chaos: An Interdisciplinary Journal of Nonlinear Science. 25:083105. doi: 10.1063/1.4927835.
 
 
 Contact: Linxuan Li.  lli7@caltech.edu or lucas.linxuan.li@gmail.com
