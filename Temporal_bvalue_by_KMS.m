@@ -82,7 +82,7 @@ KMS_Poisson_normal=KMS_Poisson/KMS0;
 
 %% KMS estimation
 function [Slope] =VGA(Dt0,Dm0,Mc)
-    ij=find(Dm0>=Mc);
+    ij=find(Dm0>=Mc-1e-6);
     Dt=Dt0(ij);
     Dm=Dm0(ij);
     L=length(Dm);
