@@ -1,0 +1,90 @@
+% -----  B-value estimation by the improved K-M slope (KMS) method (based on the “divide & conquer” algorithm) ------
+% --------------------------------------------------------------------------------------------------------------------
+
+%  This code calculates the b-value by the improved K-M slope (KMS) method based on the “divide & conquer” (DC) algorithm
+%  The input is a series of Magnitude filted by Mc
+
+% Reference: 
+% 1. Linxuan Li, Gang Luo, and Mian Liu (2023). The K–M slope: a potential supplement for b-value. 
+%    Seismological Research Letters.
+% 2. Linxuan Li and Gang Luo (in revision). Can we obtain reliable seismic b-values for real-time catalogs?
+% 3. Xin Lan, Hongming Mo, Shiyu Chen, Qi Liu, and Yong Deng (2015). Fast transformation from time series 
+%    to visibility graphs. Chaos: An Interdisciplinary Journal of Nonlinear Science.
+
+% CopyRight: Linxuan Li, Wuhan University (ll7@caltech.edu or lucas.linxuan.li@gmail.com)
+% Tested under Matlab_R2020b
+
+%%
+
+clc,clear
+% replace the part by your data
+    L=500;
+    b=1;
+    Pcm=rand(1,L);
+    Magnitude=-1/b.*log10(Pcm);
+    b_KMS=KMS(Magnitude);
+%
+function [b_kms]=KMS(Dm)
+    Dm=reshape(Dm,1,[]);
+    L=length(Dm);
+    kms0=-15.15*(log10(L))^(-2.14)+11.85; % KMS/b ratio
+    kms_every=zeros(1,10);
+    for j=1:10
+        dt_Poisson=exprnd(1,1,L-1);
+        t_Poisson=cumsum(dt_Poisson);
+        t_Poisson=[0,t_Poisson]; % generate random occurrence time
+        randIndex_A = randperm(L); 
+        Magn_cal= Dm(randIndex_A); % randomly arrange the occurrence order
+        % calculate K for the generated catalog
+        left=1;
+        right=L;
+        VG0=2*ones(1,L);
+        VG0(1)=1;
+        VG0(end)=1;
+        VG=VGA0(t_Poisson,Dm,left,right,VG0);
+        % calculate KMS for the generated catalog
+        pl=polyfit(Dm,VG,1);
+        kms_every(j)=pl(1);
+    end
+    % calculate the corresponding b-value
+    b_kms=mean(kms_every)/kms0;
+end
+
+
+% The visibility degree derived by the “divide & conquer” algorithm. The strategy 
+% utilizes the fact that the nodes on one side of the maximum cannot ‚Äúsee‚Äù another
+% node on the other side. The algorithm finds the connections of the maximum node 
+% with other nodes, and then divide the time series into two separated parts based
+% on the maximum node, and repeat the above procedure until every segment contains
+% only two nodes.
+ 
+function [VG]=VGA0(Dt,Dm,left,right,VG)
+    [max_value,max_place0]=max(Dm(left:right));
+    max_place=max_place0+left-1;
+     for i=left:max_place-2
+         tem_Dm=Dm(i+1:max_place-1);
+         tem_Dt=Dt(i+1:max_place-1);
+         cri_Dm=Dm(i)+(Dm(max_place)-Dm(i))*(tem_Dt-Dt(i))/(Dt(max_place)-Dt(i));
+         cri=tem_Dm-cri_Dm;
+         if max(cri)<0
+            VG(i)=VG(i)+1;
+            VG(max_place)=VG(max_place)+1;
+         end
+     end
+     for i=max_place+2:right
+         tem_Dm=Dm(max_place+1:i-1);
+         tem_Dt=Dt(max_place+1:i-1);
+         cri_Dm=Dm(i)+(Dm(max_place)-Dm(i))*(tem_Dt-Dt(i))/(Dt(max_place)-Dt(i));
+         cri=tem_Dm-cri_Dm;
+         if max(cri)<0
+            VG(i)=VG(i)+1;
+            VG(max_place)=VG(max_place)+1;
+         end
+     end
+     if left<max_place-2
+         VG=VGA0(Dt,Dm,left,max_place-1,VG);
+     end
+     if right>max_place+2
+         VG=VGA0(Dt,Dm,max_place+1,right,VG);
+     end
+end
