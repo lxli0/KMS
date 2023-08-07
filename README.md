@@ -5,7 +5,7 @@ We verify that there is a positive between KMS and b-value from Gutenberg–Rich
 
 Here, We provide:
 1.  The Matlab code to calculate KMS_0 (KMS/b ratio) under a given catalog size. --KMS2b_ratio.m
-2.  The Matlab code to calculate the temporal evolution of the b-value by KMS and the improved KMS methods. The earthquake data in the northeastern Tibetan Plateau from 1980 to 2020 is the input of the code and can be freely replaced. --Temporal_bvalue_by_KMS.m
+2.  The Matlab code to calculate the temporal evolution of the b-value by KMS and the improved KMS methods. The earthquake data in the northeastern Tibetan Plateau from 1980 to 2020 (Catalog_out.txt) is the input of the code and can be freely replaced. --Temporal_bvalue_by_KMS.m
 3.  A relatively fast (compared with the above two scrips, the time complexity is O(n^2), where n is the catalog size) Matlab code for calculating the b-value of a given magnitude sequence based on the improved KMS method. The script is still based on the classic definition of a visibility graph. --KMS_Improved_tradditional.m
 5.  An efficient (the time complexity is O(n*logn)) Matlab code for calculating the b-value of a given magnitude sequence based on the improved KMS method. The script is based on the Divide & Conquer (DC) strategy (Lan et al., 2015). --KMS_Improved_DC_algorithm.m
 
