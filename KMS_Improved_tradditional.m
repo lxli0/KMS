@@ -1,7 +1,8 @@
-% -----  B-value estimation by the improved K-M slope (KMS) method (a fast algorithm) ------
-% ------------------------------------------------------------------------------------------
+% -----------  B-value estimation by the improved K-M slope (KMS) method  ------------
+% ------------------------------------------------------------------------------------
 
-% This code calculates the b-value by the improved K-M slope (KMS) method
+% This script is the function to calculate the b-value by the improved K-M slope (KMS) method
+% The calculation is based on the traditional definition of a visibility graph. 
 % The input is a series of Magnitude filted by Mc
 % Important note: Magnitude should be a row vector
 
