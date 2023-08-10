@@ -19,7 +19,7 @@
 %
 
 clc,clear
-Catalog=load('Catalog_out.txt');
+Catalog=load('Catalog_out.txt'); % Please manually delete the first row (text) before running the code
 M=Catalog(:,4);
 t=Catalog(:,1);
 Mrange=min(M):0.1:max(M);
