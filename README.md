@@ -3,7 +3,7 @@
 K–M slope (KMS) is a parameter derived from Visibility Graph Analysis (Lacasa et al., 2008; Telesca et al., 2013).
 We verify that there is a positive between KMS and b-value from Gutenberg–Richter law. Thus, it can be used to estimate the b-value.
 
-**The most efficient script to calculate b-values using the KMS method is KMS_Improved_DC_algorithm.m. One only needs to input the magnitude sequence. The script (the time complexity is O(n*logn)) uses the Divide & Conquer (DC) strategy (Lan et al., 2015).**
+**The most efficient script to calculate b-values using the KMS method is "KMS_Improved_DC_algorithm.m". One only needs to input the magnitude sequence to get a b-value. The script (the time complexity is O(n*logn)) uses the Divide & Conquer (DC) strategy (Lan et al., 2015).**
 
 Some other dispensable programs:
 1.  The Matlab code to calculate KMS_0 (KMS/b ratio) under a given catalog size. --KMS2b_ratio.m
