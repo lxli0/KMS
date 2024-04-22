@@ -12,7 +12,7 @@ Some other dispensable programs:
 
 For estimating the b-value using the KMS method, please refer to:
 1.  Linxuan Li, Gang Luo, and Mian Liu (2023). The K–M slope: a potential supplement for b-value. Seismological Research Letters 94, 1892-1899. doi: 10.1785/0220220268.
-2.  Linxuan Li and Gang Luo (in revision). Can we obtain reliable seismic b-values for real-time catalogs?
+2.  Linxuan Li and Gang Luo (2024). Can we obtain reliable seismic b-values for real-time catalogs? Geophysical Journal International 237(3), 1554–1566. doi: 10.1093/gji/ggae124.
 
 Other references: 
 1.  Lucas Lacasa, Bartolo Luque, Fernando Ballesteros, Jordi Luque, and Juan Carlos Nuño (2008). From time series to complex networks: The visibility graph. Proceedings of the National Academy of Sciences 105(13), 4972-4975. doi: 10.1073/pnas.0709247105.
