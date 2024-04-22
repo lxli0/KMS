@@ -20,4 +20,4 @@ Other references:
 3.  Xin Lan, Hongming Mo, Shiyu Chen, Qi Liu, and Yong Deng (2015). Fast transformation from time series to visibility graphs. Chaos: An Interdisciplinary Journal of Nonlinear Science. 25:083105. doi: 10.1063/1.4927835.
 
 
-Contact: Linxuan Li.  lli7@caltech.edu or lucas.linxuan.li@gmail.com
+Contact: Linxuan Li.  lxli@caltech.edu or lucas.linxuan.li@gmail.com
