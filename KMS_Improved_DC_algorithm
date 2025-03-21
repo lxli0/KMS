@@ -1,90 +1,116 @@
-% -----  B-value estimation by the improved K-M slope (KMS) method (based on the “divide & conquer” algorithm) ------
-% --------------------------------------------------------------------------------------------------------------------
+% ----- B-value Estimation Using the Improved K–M Slope (KMS) Method -----
+% ------------------- Based on the “Divide & Conquer” Algorithm -------------------
 
-%  This code calculates the b-value by the improved K-M slope (KMS) method based on the “divide & conquer” (DC) algorithm
-%  The input is a series of Magnitude filted by Mc
+% Description:
+% This MATLAB script estimates the b-value of a seismic catalog using the 
+% improved K–M slope (KMS) method. The KMS approach is a novel technique 
+% for b-value estimation that leverages visibility graph theory and the 
+% divide & conquer (DC) strategy for computational efficiency.
 
-% Reference: 
-% 1. Linxuan Li, Gang Luo, and Mian Liu (2023). The K–M slope: a potential supplement for b-value. 
-%    Seismological Research Letters.
-% 2. Linxuan Li and Gang Luo (2024). Can we obtain reliable seismic b-values for real-time catalogs? Geophysical Journal International.
-% 3. Xin Lan, Hongming Mo, Shiyu Chen, Qi Liu, and Yong Deng (2015). Fast transformation from time series 
-%    to visibility graphs. Chaos: An Interdisciplinary Journal of Nonlinear Science.
+% Input:
+% - A vector of magnitudes filtered by the completeness magnitude (Mc).
 
-% CopyRight: Linxuan Li, Wuhan University (ll7@caltech.edu or lucas.linxuan.li@gmail.com)
-% Tested under Matlab_R2020b
+% Output:
+% - Estimated b-value based on the KMS method.
 
-%%
+% References:
+% 1. Linxuan Li, Gang Luo, and Mian Liu (2023). "The K–M slope: a potential supplement for b-value." 
+%    *Seismological Research Letters*.
+% 2. Linxuan Li and Gang Luo (2024). "Can we obtain reliable seismic b-values for real-time catalogs?" 
+%    *Geophysical Journal International*.
+% 3. Xin Lan, Hongming Mo, Shiyu Chen, Qi Liu, and Yong Deng (2015). "Fast transformation from time series 
+%    to visibility graphs." *Chaos: An Interdisciplinary Journal of Nonlinear Science*.
 
-clc,clear
-% replace the part by your data
-    L=500;
-    b=1;
-    Pcm=rand(1,L);
-    Magnitude=-1/b.*log10(Pcm);
-    b_KMS=KMS(Magnitude);
-%
-function [b_kms]=KMS(Dm)
-    Dm=reshape(Dm,1,[]);
-    L=length(Dm);
-    kms0=-15.15*(log10(L))^(-2.14)+11.85; % KMS/b ratio
-    kms_every=zeros(1,10);
-    for j=1:10
-        dt_Poisson=exprnd(1,1,L-1);
-        t_Poisson=cumsum(dt_Poisson);
-        t_Poisson=[0,t_Poisson]; % generate random occurrence time
-        randIndex_A = randperm(L); 
-        Magn_cal= Dm(randIndex_A); % randomly arrange the occurrence order
-        % calculate K for the generated catalog
-        left=1;
-        right=L;
-        VG0=2*ones(1,L);
-        VG0(1)=1;
-        VG0(end)=1;
-        VG=VGA0(t_Poisson,Magn_cal,left,right,VG0);
-        % calculate KMS for the generated catalog
-        pl=polyfit(Magn_cal,VG,1);
-        kms_every(j)=pl(1);
+% Author:
+% Linxuan Li, Wuhan University
+% Contact: ll7@caltech.edu | lucas.linxuan.li@gmail.com
+
+% Platform:
+% Tested in MATLAB R2020b
+
+%% Example: Replace the following section with your own data
+clc; clear;
+numEvents = 500;                        % Number of simulated events
+trueBValue = 1;                         % True b-value for simulation
+randomProb = rand(1, numEvents);       % Uniform random values
+magnitudes = -1 / trueBValue * log10(randomProb); % Simulated magnitudes
+estimatedBValue = estimateB_KMS(magnitudes);      % Estimate using KMS method
+
+%% Function: KMS b-value estimation
+function [bValue_KMS] = estimateB_KMS(magnitudeArray)
+    magnitudeArray = reshape(magnitudeArray, 1, []);
+    numEvents = length(magnitudeArray);
+    
+    % Empirical ratio between KMS slope and b-value
+    ratio_KMS_to_b = -15.15 * (log10(numEvents))^(-2.14) + 11.85;
+    
+    slopeSamples = zeros(1, 10); % To store KMS slopes from multiple realizations
+    
+    for i = 1:10
+        interEventTimes = exprnd(1, 1, numEvents - 1);
+        occurrenceTimes = [0, cumsum(interEventTimes)]; % Simulated Poisson event times
+        
+        shuffledIndices = randperm(numEvents); 
+        randomizedMagnitudes = magnitudeArray(shuffledIndices); % Randomize event order
+        
+        % Initialize visibility degree array
+        visibilityDegrees = 2 * ones(1, numEvents);
+        visibilityDegrees(1) = 1;
+        visibilityDegrees(end) = 1;
+        
+        % Compute visibility degrees using divide & conquer method
+        visibilityDegrees = computeVisibilityGraph(occurrenceTimes, randomizedMagnitudes, 1, numEvents, visibilityDegrees);
+        
+        % Linear fit: slope = KMS
+        coeffs = polyfit(randomizedMagnitudes, visibilityDegrees, 1);
+        slopeSamples(i) = coeffs(1);
     end
-    % calculate the corresponding b-value
-    b_kms=mean(kms_every)/kms0;
+    
+    % Convert KMS slope to b-value
+    bValue_KMS = mean(slopeSamples) / ratio_KMS_to_b;
 end
 
+%% Function: Divide & Conquer Visibility Graph Computation
+function [visibilityDegrees] = computeVisibilityGraph(timeSeries, magnitudeSeries, leftIdx, rightIdx, visibilityDegrees)
+    [~, localMaxOffset] = max(magnitudeSeries(leftIdx:rightIdx));
+    maxIdx = localMaxOffset + leftIdx - 1;
 
-% The visibility degree derived by the “divide & conquer” algorithm. The strategy 
-% utilizes the fact that the nodes on one side of the maximum cannot ‚Äúsee‚Äù another
-% node on the other side. The algorithm finds the connections of the maximum node 
-% with other nodes, and then divide the time series into two separated parts based
-% on the maximum node, and repeat the above procedure until every segment contains
-% only two nodes.
- 
-function [VG]=VGA0(Dt,Dm,left,right,VG)
-    [max_value,max_place0]=max(Dm(left:right));
-    max_place=max_place0+left-1;
-     for i=left:max_place-2
-         tem_Dm=Dm(i+1:max_place-1);
-         tem_Dt=Dt(i+1:max_place-1);
-         cri_Dm=Dm(i)+(Dm(max_place)-Dm(i))*(tem_Dt-Dt(i))/(Dt(max_place)-Dt(i));
-         cri=tem_Dm-cri_Dm;
-         if max(cri)<0
-            VG(i)=VG(i)+1;
-            VG(max_place)=VG(max_place)+1;
-         end
-     end
-     for i=max_place+2:right
-         tem_Dm=Dm(max_place+1:i-1);
-         tem_Dt=Dt(max_place+1:i-1);
-         cri_Dm=Dm(i)+(Dm(max_place)-Dm(i))*(tem_Dt-Dt(i))/(Dt(max_place)-Dt(i));
-         cri=tem_Dm-cri_Dm;
-         if max(cri)<0
-            VG(i)=VG(i)+1;
-            VG(max_place)=VG(max_place)+1;
-         end
-     end
-     if left<max_place-2
-         VG=VGA0(Dt,Dm,left,max_place-1,VG);
-     end
-     if right>max_place+2
-         VG=VGA0(Dt,Dm,max_place+1,right,VG);
-     end
+    % Left segment visibility
+    for i = leftIdx:maxIdx - 2
+        midMagnitudes = magnitudeSeries(i+1:maxIdx-1);
+        midTimes = timeSeries(i+1:maxIdx-1);
+        
+        criticalLine = magnitudeSeries(i) + ...
+            (magnitudeSeries(maxIdx) - magnitudeSeries(i)) .* ...
+            (midTimes - timeSeries(i)) ./ (timeSeries(maxIdx) - timeSeries(i));
+        
+        if max(midMagnitudes - criticalLine) < 0
+            visibilityDegrees(i) = visibilityDegrees(i) + 1;
+            visibilityDegrees(maxIdx) = visibilityDegrees(maxIdx) + 1;
+        end
+    end
+
+    % Right segment visibility
+    for i = maxIdx + 2:rightIdx
+        midMagnitudes = magnitudeSeries(maxIdx+1:i-1);
+        midTimes = timeSeries(maxIdx+1:i-1);
+        
+        criticalLine = magnitudeSeries(i) + ...
+            (magnitudeSeries(maxIdx) - magnitudeSeries(i)) .* ...
+            (midTimes - timeSeries(i)) ./ (timeSeries(maxIdx) - timeSeries(i));
+        
+        if max(midMagnitudes - criticalLine) < 0
+            visibilityDegrees(i) = visibilityDegrees(i) + 1;
+            visibilityDegrees(maxIdx) = visibilityDegrees(maxIdx) + 1;
+        end
+    end
+
+    % Recursive divide & conquer calls
+    if leftIdx < maxIdx - 2
+        visibilityDegrees = computeVisibilityGraph(timeSeries, magnitudeSeries, leftIdx, maxIdx - 1, visibilityDegrees);
+    end
+    if rightIdx > maxIdx + 2
+        visibilityDegrees = computeVisibilityGraph(timeSeries, magnitudeSeries, maxIdx + 1, rightIdx, visibilityDegrees);
+    end
 end
+
