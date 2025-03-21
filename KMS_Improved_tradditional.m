@@ -34,7 +34,7 @@ function [b_kms] =KMS(Magn)
         t_Poisson=[0,t_Poisson];
         randIndex_A = randperm(size);
         Magn_cal= Magn(randIndex_A);
-        kms(l)=VGA(t_Poisson,Magn);
+        kms(l)=VGA(t_Poisson,Magn_cal);
     end
     im_kms=mean(kms);
     b_kms=im_kms/kms0;
